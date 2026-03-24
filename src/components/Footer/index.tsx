@@ -33,11 +33,12 @@ export default function Footer(){
                 </a>
             </nav>
 
-            <nav className={"flex justify-center items-center gap-4 text-gray-400"}>
+            <nav className={"flex flex-col sm:flex-row justify-center items-center gap-4 text-gray-400"}>
                 <Link href={"/"} className={"hover:text-white transition-all duration-300 ease-in-out"}>Home</Link>
                 <Link href={"/services"} className={"hover:text-white transition-all duration-300 ease-in-out"}>Serviços</Link>
-                <Link href={"/"} className={"hover:text-white transition-all duration-300 ease-in-out"}>Projetos</Link>
-                <Link href={"/"} className={"hover:text-white transition-all duration-300 ease-in-out"}>Contatos</Link>
+                <Link href={"/project"} className={"hover:text-white transition-all duration-300 ease-in-out"}>Projetos</Link>
+                <Link href={"/certification"} className={"hover:text-white transition-all duration-300 ease-in-out"}>Certificações</Link>
+                <Link href={"/contacts"} className={"hover:text-white transition-all duration-300 ease-in-out"}>Contatos</Link>
             </nav>
             <div className={"text-center"}>
                 <span className={"text-gray-400"}>© {ano} Ian Thiago. Todos os direitos reservados.</span>

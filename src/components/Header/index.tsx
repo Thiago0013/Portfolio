@@ -11,6 +11,7 @@ export function Header() {
         { name: "Home", href: "/" },
         { name: "Serviços", href: "/services" },
         { name: "Projetos", href: "/project" },
+        {name: "Certificações", href: "/certification"},
         { name: "Contato", href: "/contacts" },
     ];
 
@@ -24,7 +25,7 @@ export function Header() {
                     <span className="text-white text-2xl font-bold tracking-tight cursor-default select-none">Ian Thiago</span>
                 </div>
                 <nav>
-                    <ul className="flex items-center justify-center gap-6 sm:gap-8">
+                    <ul className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8">
                         {navLinks.map((link) => (
                             <li key={link.name}>
                                 <Link

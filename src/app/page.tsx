@@ -1,7 +1,7 @@
-import { Header } from "@/components/Header";
-import { ArrowRightIcon } from "lucide-react";
-import { Data } from "@/components/Data";
-import { Cards } from "@/components/Cards";
+import {Header} from "@/components/Header";
+import {ArrowRightIcon, GithubIcon} from "lucide-react";
+import {Data} from "@/components/Data";
+import {Cards} from "@/components/Cards";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
@@ -9,7 +9,28 @@ export const metadata = {
   title: "Home | Ian Thiago"
 };
 
-export default function Home() {
+async function getGithubData() {
+  try {
+    const response = await fetch("http://localhost:8080/github/data", {
+      next: { revalidate: 3600 },
+      cache: "no-store"
+    });
+    if (!response.ok) throw new Error('Erro ao buscar dados');
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    return {
+      login: "none",
+      public_repos: 0,
+      followers: 0
+    };
+  }
+}
+
+
+export default async function Home() {
+  const data = await getGithubData();
+
   return (
       <>
         <Header />
@@ -58,7 +79,7 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8 sm:gap-24 mb-8">
                   <div className="w-[100px]">
                     <Data
-                        valor={31}
+                        valor={data.public_repos}
                         text="Repositórios"
                     />
                   </div>
@@ -105,6 +126,46 @@ export default function Home() {
                   title="Desenvolvimento Back-End"
                   number={20}
               />
+            </div>
+          </section>
+          <section className={"p-6 md:p-9 min-h-[80vh] overflow-hidden bg-gray-900"} >
+            <div className={"border-b border-yellow-300 p-2 mb-8"}>
+              <h2 className={"text-3xl text-white font-bold"}>Sobre mim</h2>
+            </div>
+
+            <div className={'flex flex-col lg:flex-row gap-16 lg:gap-4 items-center md:justify-around h-full mt-32'}>
+              <div>
+                <p className="max-w-[500px] text-xl text-gray-400">
+                  Atualmente no 5º período no <strong className="text-yellow-300">IFCE - Campus Cedro</strong>, sou um desenvolvedor apaixonado por entender como as coisas funcionam por baixo dos panos.
+                  Minha jornada técnica é guiada por duas grandes áreas: o <strong className="text-yellow-300">desenvolvimento web</strong> e a <strong className="text-yellow-300">cibersegurança</strong>. Acredito que, no cenário atual,
+                  não basta apenas fazer o código funcionar. Meu foco é construir aplicações e APIs que sejam escaláveis, eficientes e, acima de tudo,
+                  <strong className="text-yellow-300"> seguras</strong> contra ameaças reais desde a sua concepção.
+                  Estou sempre em busca de novos desafios, aplicando boas práticas de engenharia de software para transformar problemas complexos em soluções inteligentes
+                  e confiáveis.
+                </p>
+
+                <div className="flex items-center gap-4 mt-8">
+                  <a
+                      href="/curriculo.pdf"
+                      download
+                      className="flex justify-center items-center gap-2 bg-yellow-300 text-black font-bold py-3 px-6 rounded-lg hover:bg-yellow-400 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                  >
+                    Baixar Currículo <ArrowRightIcon />
+                  </a>
+
+                  <a
+                      href="https://github.com/Thiago0013"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex justify-center items-center gap-2 border-2 border-gray-600 text-white font-bold py-3 px-6 rounded-lg hover:border-yellow-300 hover:text-yellow-300 transition-all duration-300 cursor-pointer"
+                  >
+                    GitHub <GithubIcon />
+                  </a>
+                </div>
+              </div>
+              <div className={"rounded-full bg-gray-200"}>
+                <img className={"w-[350px] h-[350px] rounded-full border-2 border-yellow-300 select-none"} draggable={"false"} src="/images/ian.png" alt=""/>
+              </div>
             </div>
           </section>
         </main>
