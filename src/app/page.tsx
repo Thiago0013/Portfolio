@@ -1,3 +1,4 @@
+import { getGithubData } from "@/services/github";
 import {Header} from "@/components/Header";
 import {ArrowRightIcon, GithubIcon} from "lucide-react";
 import {Data} from "@/components/Data";
@@ -8,24 +9,6 @@ import Link from "next/link";
 export const metadata = {
   title: "Home | Ian Thiago"
 };
-
-async function getGithubData() {
-  try {
-    const response = await fetch("http://localhost:8080/github/data", {
-      next: { revalidate: 3600 },
-      cache: "no-store"
-    });
-    if (!response.ok) throw new Error('Erro ao buscar dados');
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    return {
-      login: "none",
-      public_repos: 0,
-      followers: 0
-    };
-  }
-}
 
 
 export default async function Home() {
